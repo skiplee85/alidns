@@ -95,6 +95,7 @@ func (d *AliDNS) genRequestURL(parms map[string]string) string {
 	s := "GET&%2F&" + url.QueryEscape(path)
 	s = strings.Replace(s, "%3A", "%253A", -1)
 	s = strings.Replace(s, "%40", "%2540", -1)
+	s = strings.Replace(s, "%2A", "%252A", -1)
 	mac := hmac.New(sha1.New, []byte(d.AccessKeySecret+"&"))
 
 	mac.Write([]byte(s))

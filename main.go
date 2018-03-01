@@ -9,15 +9,15 @@ import (
 func main() {
 
 	args := os.Args
-	if len(args) < 3 {
-		panic("Args < 3, need id,secret,domain.")
+	if len(args) < 5 {
+		panic("Args < 4, need id,secret,domain,key.")
 	}
 	aliDNS := &base.AliDNS{
-		AccessKeyID:     args[0],
-		AccessKeySecret: args[1],
+		AccessKeyID:     args[1],
+		AccessKeySecret: args[2],
 	}
 	ip := base.GetIP()
-	rs := aliDNS.GetDomainRecords(args[2], "*")
+	rs := aliDNS.GetDomainRecords(args[3], args[4])
 	if len(rs) > 0 && ip != "" && rs[0].Value != ip {
 		rs[0].Value = ip
 		aliDNS.UpdateDomainRecord(rs[0])
